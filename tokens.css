@@ -1,0 +1,219 @@
+/* ============================================================
+   MASHOWMAGIC — Design System Foundations
+   Bento-grid personal portfolio. Playful but clean.
+   Light + dark theme via [data-theme] on <html> or <body>.
+   ============================================================ */
+
+/* ---- Webfonts (Google Fonts CDN) ----
+   Display : Bricolage Grotesque  (characterful grotesque)
+   Body/UI : Inter                (brand's existing sans)
+   Mono    : JetBrains Mono       (dev labels, stats, timers)
+   See README "Visual Foundations" for substitution notes. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============================================================
+   1. PRIMITIVES — raw values, theme-agnostic
+   ============================================================ */
+:root {
+  /* Brand / accent ramp (Discord blurple — the brand's real signal) */
+  --blurple-50:  #eef0fe;
+  --blurple-200: #c3c9fb;
+  --blurple-400: #7984f5;
+  --blurple-500: #5865f2;   /* PRIMARY ACCENT */
+  --blurple-600: #4752c4;
+  --blurple-700: #3a43a0;
+
+  /* Widget accents — each live card has a signature hue */
+  --spotify:  #1db954;   /* now playing */
+  --kofi:     #ff5e5b;   /* support / heart */
+  --thai:     #ef4444;   /* location flag accent */
+
+  /* Discord presence states */
+  --status-online:  #23a55a;
+  --status-idle:    #f0b232;
+  --status-dnd:     #f23f43;
+  --status-offline: #80848e;
+
+  /* Neutral ramp (zinc-leaning) */
+  --zinc-50:  #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-150: #ececee;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-600: #52525b;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
+
+  /* Type families */
+  --font-display: 'Bricolage Grotesque', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale (clamped for responsive bento) */
+  --fs-display: clamp(2.4rem, 5vw, 3.4rem);  /* 38–54px  hero greeting */
+  --fs-h1:      clamp(1.6rem, 3vw, 2rem);    /* 26–32px  section titles */
+  --fs-h2:      1.375rem;  /* 22px  card headlines */
+  --fs-title:   1.0625rem; /* 17px  card titles */
+  --fs-body:    0.9375rem; /* 15px  body */
+  --fs-small:   0.8125rem; /* 13px  meta */
+  --fs-label:   0.6875rem; /* 11px  mono labels */
+
+  --lh-tight: 1.05;
+  --lh-snug:  1.25;
+  --lh-body:  1.55;
+
+  --tracking-label: 0.14em;
+  --tracking-tight: -0.02em;
+  --tracking-display: -0.035em;
+
+  /* Radii — generous, bento-soft */
+  --radius-card:  24px;
+  --radius-inner: 14px;
+  --radius-sm:    10px;
+  --radius-pill:  999px;
+
+  /* Spacing */
+  --gap:       16px;   /* gap between bento cells */
+  --pad-card:  22px;   /* card interior padding */
+  --pad-tight: 14px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* brand's signature easing */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.18s;
+  --dur:      0.32s;
+  --dur-slow: 0.6s;
+}
+
+/* ============================================================
+   2. SEMANTIC TOKENS — light theme (default)
+   ============================================================ */
+:root,
+[data-theme="light"] {
+  --bg:          var(--zinc-100);
+  --bg-grain:    rgba(0, 0, 0, 0.015);
+  --surface:     #ffffff;        /* card */
+  --surface-2:   var(--zinc-100);/* inset / chip inside card */
+  --surface-3:   var(--zinc-150);
+
+  --fg:          var(--zinc-900);
+  --fg-muted:    var(--zinc-500);
+  --fg-subtle:   var(--zinc-400);
+  --fg-on-accent:#ffffff;
+
+  --border:      rgba(9, 9, 11, 0.08);
+  --border-strong: rgba(9, 9, 11, 0.14);
+
+  --accent:      var(--blurple-500);
+  --accent-hover:var(--blurple-600);
+  --accent-soft: var(--blurple-50);
+
+  /* Card elevation */
+  --shadow-card: 0 1px 2px rgba(9,9,11,0.04), 0 6px 16px rgba(9,9,11,0.05);
+  --shadow-hover:0 2px 4px rgba(9,9,11,0.05), 0 16px 36px rgba(9,9,11,0.10);
+  --shadow-pop:  0 12px 48px rgba(9,9,11,0.16);
+}
+
+/* ============================================================
+   3. SEMANTIC TOKENS — dark theme
+   ============================================================ */
+[data-theme="dark"] {
+  --bg:          var(--zinc-950);
+  --bg-grain:    rgba(255, 255, 255, 0.018);
+  --surface:     #161618;
+  --surface-2:   #202023;
+  --surface-3:   #2a2a2e;
+
+  --fg:          var(--zinc-50);
+  --fg-muted:    var(--zinc-400);
+  --fg-subtle:   var(--zinc-600);
+  --fg-on-accent:#ffffff;
+
+  --border:      rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --accent:      var(--blurple-500);
+  --accent-hover:var(--blurple-400);
+  --accent-soft: rgba(88, 101, 242, 0.16);
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.4);
+  --shadow-hover:0 2px 6px rgba(0,0,0,0.5), 0 18px 40px rgba(0,0,0,0.55);
+  --shadow-pop:  0 16px 56px rgba(0,0,0,0.7);
+}
+
+/* ============================================================
+   4. SEMANTIC TYPE CLASSES
+   ============================================================ */
+.t-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--fg);
+}
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+}
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+}
+.t-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-title);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--fg-muted);
+}
+.t-small {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+.t-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+/* ============================================================
+   5. BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+::selection { background: var(--accent); color: #fff; }
